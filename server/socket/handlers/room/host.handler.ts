@@ -111,6 +111,24 @@ export default function registerRoomHostHandlers(
     io.to(roomCode).emit("room:teamCreate", team);
   });
 
+  socket.on("removeRoomTeam", ({ roomCode, teamName }, callback) => {
+    const userId = socket.data.userId;
+    const { success, message, room } = RoomService.removeRoomTeam({
+      roomCode,
+      userId,
+      teamName,
+    });
+
+    if (!success || !room) {
+      callback?.({ status: "error", success, message });
+      return;
+    }
+
+    callback?.({ status: "success", success, message });
+    io.to(roomCode).emit("room:update", room);
+    io.to(roomCode).emit("room:teamRemove", teamName);
+  });
+
   socket.on("toggleRoomPlayerLock", ({ roomCode, playerId }) => {
     const userId = socket.data.userId;
     const { success, room } = RoomService.toggleRoomPlayerLock({
@@ -119,12 +137,10 @@ export default function registerRoomHostHandlers(
       hostId: userId,
     });
 
-    console.log("lockedPlayer");
-
     if (!success || !room) {
       return;
     }
 
-    io.emit("room:update", room);
+    io.to(roomCode).emit("room:update", room);
   });
 }

@@ -56,7 +56,7 @@ export class RoomService {
       room.players[userId] = {
         id: userId,
         name: user.name,
-        team: "test",
+        team: null,
         connected: true,
         locked: false,
       };
@@ -203,6 +203,39 @@ export class RoomService {
     });
 
     return { success: true, message: "Team created successfully", room };
+  }
+
+  static removeRoomTeam({
+    roomCode,
+    userId,
+    teamName,
+  }: {
+    roomCode: string;
+    userId: string;
+    teamName: string;
+  }) {
+    const room = roomManager.getRoom(roomCode);
+    if (!room) return { success: false, message: "Room not found" };
+
+    if (!roomManager.isRoomHost(userId, roomCode)) {
+      return { success: false, message: "You are not the host of this room" };
+    }
+
+    const existingTeam = room.teams[teamName];
+    if (!existingTeam)
+      return { success: false, message: "This team is not existed" };
+
+    Object.values(room.players).forEach((player) => {
+      if (player.team === teamName) {
+        player.team = null;
+      }
+    });
+
+    roomManager.updateRoom(roomCode, (room) => {
+      delete room.teams[teamName];
+    });
+
+    return { success: true, message: "Team removed successfully", room };
   }
 
   static toggleRoomPlayerLock({

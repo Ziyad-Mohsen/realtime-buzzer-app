@@ -95,6 +95,21 @@ export default function RoomHost() {
     socket.emit("toggleRoomLock", { roomCode: roomCode as string });
   };
 
+  const removeRoomTeam = ({ teamName }: { teamName: string }) => {
+    socket.emit(
+      "removeRoomTeam",
+      { roomCode: roomCode as string, teamName },
+      (response) => {
+        if (!response.success) {
+          toast.error(response.message);
+          return;
+        }
+
+        toast(`Team "${teamName}" was removed from the room!`);
+      },
+    );
+  };
+
   if (error) {
     return (
       <div
@@ -122,6 +137,8 @@ export default function RoomHost() {
 
   const players = Object.values(roomState.players);
   const teams = getTeams(roomState);
+
+  console.log(teams);
 
   return (
     <div className="animate-slide-up">

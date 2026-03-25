@@ -59,6 +59,11 @@ export interface ClientToServerEvents {
     callback?: (response: CallbackResponse<null>) => void,
   ) => void;
 
+  removeRoomTeam: (
+    data: { roomCode: string; teamName: string },
+    callback?: (response: CallbackResponse<null>) => void,
+  ) => void;
+
   toggleRoomPlayerLock: (data: { roomCode: string; playerId: string }) => void;
 }
 
@@ -86,6 +91,7 @@ export interface ServerToClientEvents {
   "room:remove": () => void;
   "room:update": (room: Room) => void;
   "room:teamCreate": (team: Team) => void;
+  "room:teamRemove": (teamName: string) => void;
 }
 
 export interface SocketData {
