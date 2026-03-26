@@ -1,4 +1,4 @@
-import { Player, Room, Team } from "../../server/types";
+import { Player, Room, Team } from "../../../server/types";
 
 export function getTeams(roomState: Room) {
   const players = roomState.players;

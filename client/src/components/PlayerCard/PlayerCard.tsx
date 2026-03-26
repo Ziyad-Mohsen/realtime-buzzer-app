@@ -1,5 +1,5 @@
 import { Player } from "../../../../server/types";
-import { socket } from "../../socket";
+import { socket } from "../../lib/socket";
 import styles from "./PlayerCard.module.css";
 
 export default function PlayerCard({

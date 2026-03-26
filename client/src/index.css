@@ -13,6 +13,8 @@
   --success-hover: #16a34a;
   --warning: #f59e0b;
   --warning-hover: #d97706;
+  --white: #ffffff;
+  --black: #000000;
   --glass-bg: rgba(30, 41, 59, 0.7);
   --glass-border: rgba(255, 255, 255, 0.1);
   --font-main: "Outfit", sans-serif;
@@ -61,6 +63,7 @@ p {
 }
 
 kbd {
+  display: none;
   position: absolute;
   right: 0;
   top: 0;
@@ -76,8 +79,8 @@ kbd {
   box-shadow: 0 0 0 1px var(--glass-border);
 }
 
-html.hide-kbd kbd {
-  display: none;
+html.show-kbd kbd {
+  display: inline-block;
 }
 
 .kbd-container:hover > kbd {

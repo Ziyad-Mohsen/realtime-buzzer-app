@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../../socket";
+import { socket } from "../../lib/socket";
 import toast from "react-hot-toast";
 import { useUserContext } from "../../contexts/UserContext";
 import styles from "./Home.module.css";

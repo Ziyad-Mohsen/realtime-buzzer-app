@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { socket } from "../socket";
+import { socket } from "../lib/socket";
 
 type UserContextType = {
   userId: string | null;

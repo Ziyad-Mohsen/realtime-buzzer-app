@@ -5,7 +5,7 @@ import RoomPlayer from "./pages/RoomPlayer/RoomPlayer";
 import "./index.css";
 import { useEffect } from "react";
 import UserContextProvider from "./contexts/UserContext";
-import { socket } from "./socket";
+import { socket } from "./lib/socket";
 import { Toaster } from "react-hot-toast";
 
 function App() {

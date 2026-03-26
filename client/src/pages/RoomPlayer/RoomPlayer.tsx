@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { socket } from "../../socket";
+import { socket } from "../../lib/socket";
 import { useUserContext } from "../../contexts/UserContext";
 import { Player, Room } from "../../../../server/types";
 import toast from "react-hot-toast";
 import buzzerSound from "../../assets/sounds/buzzer-sound.mp3";
 import useAudio from "../../hooks/useAudio";
 import styles from "./RoomPlayer.module.css";
+import { useControlsKeys } from "../../hooks/useControlsKeys";
+import { KEYBOARD_SHORTCUTS } from "../../constants";
+import ToggleKbdButton from "../../components/ToggleKbdButton/ToggleKbdButton";
 
 export default function RoomPlayer() {
   const navigate = useNavigate();
@@ -86,6 +89,13 @@ export default function RoomPlayer() {
     socket.emit("buzz", { roomCode: roomCode as string });
   };
 
+  useControlsKeys([
+    {
+      key: KEYBOARD_SHORTCUTS.player.buzz,
+      callback: handleBuzz,
+    },
+  ]);
+
   const handleRoomLeave = () => {
     socket.emit("leaveRoom", { roomCode: roomCode as string }, (response) => {
       if (!response.success) {
@@ -137,21 +147,22 @@ export default function RoomPlayer() {
   const hasBuzzed = false;
 
   return (
-    <div className={`animate-slide-up ${styles.playerWrapper}`}>
-      {/* Header */}
-      <div className={`flex-row ${styles.headerRow}`}>
-        <div>
-          <h1 className={styles.playerName}>{player.name}</h1>
-          <div className="badge badge-primary">{player.team || "-"}</div>
+    <>
+      <div className={`animate-slide-up ${styles.playerWrapper}`}>
+        {/* Header */}
+        <div className={`flex-row ${styles.headerRow}`}>
+          <div>
+            <h1 className={styles.playerName}>{player.name}</h1>
+            <div className="badge badge-primary">{player.team || "-"}</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div className={styles.roomCodeLabel}>Room</div>
+            <div className={styles.roomCodeValue}>{roomCode}</div>
+          </div>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <div className={styles.roomCodeLabel}>Room</div>
-          <div className={styles.roomCodeValue}>{roomCode}</div>
-        </div>
-      </div>
 
-      <div className={styles.buzzerSection}>
-        {/* <div style={{ marginTop: "20px" }}>
+        <div className={styles.buzzerSection}>
+          {/* <div style={{ marginTop: "20px" }}>
           <select
             className="team-select"
             value={team || ""}
@@ -167,27 +178,30 @@ export default function RoomPlayer() {
           </select>
         </div> */}
 
-        <button
-          className={`${styles.buzzerBtn} ${didIBuzz ? `buzzed-pulse ${styles.winnerBuzzer}` : styles.lockedBuzzer}`}
-          onClick={handleBuzz}
-          disabled={isDisabled}
-        >
-          {didIBuzz ? "BUZZED!" : "BUZZ"}
-        </button>
+          <button
+            className={`kbd-container ${styles.buzzerBtn} ${didIBuzz ? `buzzed-pulse ${styles.winnerBuzzer}` : styles.lockedBuzzer}`}
+            onClick={handleBuzz}
+            disabled={isDisabled}
+          >
+            <kbd>{KEYBOARD_SHORTCUTS.player.buzz}</kbd>
+            {didIBuzz ? "BUZZED!" : "BUZZ"}
+          </button>
 
-        <h2
-          className={`text-center ${styles.statusMessage} ${didIBuzz ? styles.statusSuccess : isDisabled && !hasBuzzed ? styles.statusDanger : styles.statusDefault}`}
-        >
-          {"statusMessage"}
-        </h2>
+          <h2
+            className={`text-center ${styles.statusMessage} ${didIBuzz ? styles.statusSuccess : isDisabled && !hasBuzzed ? styles.statusDanger : styles.statusDefault}`}
+          >
+            {"statusMessage"}
+          </h2>
 
-        <button
-          className={`btn btn-outline ${styles.leaveBtn}`}
-          onClick={handleRoomLeave}
-        >
-          Leave Room
-        </button>
+          <button
+            className={`btn btn-outline ${styles.leaveBtn}`}
+            onClick={handleRoomLeave}
+          >
+            Leave Room
+          </button>
+        </div>
       </div>
-    </div>
+      <ToggleKbdButton />
+    </>
   );
 }

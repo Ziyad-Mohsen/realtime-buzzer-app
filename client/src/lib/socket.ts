@@ -2,7 +2,7 @@ import { io, Socket } from "socket.io-client";
 import {
   ClientToServerEvents,
   ServerToClientEvents,
-} from "../../server/types/socket.types";
+} from "../../../server/types/socket.types";
 
 const createNewId = () => {
   const existingId = localStorage.getItem("my_device_id");

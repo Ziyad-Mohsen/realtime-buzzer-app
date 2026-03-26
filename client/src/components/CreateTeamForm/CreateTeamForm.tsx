@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { socket } from "../../socket";
+import { socket } from "../../lib/socket";
 import toast from "react-hot-toast";
 import styles from "./CreateTeamForm.module.css";
 

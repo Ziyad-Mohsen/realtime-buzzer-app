@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { socket } from "../../socket";
+import { socket } from "../../lib/socket";
 import CreateTeamForm from "../../components/CreateTeamForm/CreateTeamForm";
 import { Player, Room } from "../../../../server/types";
 import toast from "react-hot-toast";
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
-import { getTeams } from "../../utils";
-import { useKeysControls } from "../../hooks/useKeyPress";
+import { getTeams } from "../../lib/utils";
+import { useControlsKeys } from "../../hooks/useControlsKeys";
+import { KEYBOARD_SHORTCUTS } from "../../constants";
 import styles from "./RoomHost.module.css";
+import ToggleKbdButton from "../../components/ToggleKbdButton/ToggleKbdButton";
 
 export default function RoomHost() {
   const { roomCode } = useParams();
@@ -17,15 +19,15 @@ export default function RoomHost() {
   const [error, setError] = useState<string | null>(null);
 
   // TODO: Add keyboard shortcuts for all actions
-  useKeysControls([
+  useControlsKeys([
     {
-      key: "c",
+      key: KEYBOARD_SHORTCUTS.host.clearBuzz,
       callback: () => {
         clearBuzz();
       },
     },
     {
-      key: "l",
+      key: KEYBOARD_SHORTCUTS.host.toggleRoomLock,
       callback: () => {
         toggleRoomLock();
       },
@@ -139,60 +141,65 @@ export default function RoomHost() {
   console.log(teams);
 
   return (
-    <div className={`animate-slide-up ${styles.hostWrapper}`}>
-      <div className={`flex-row ${styles.headerRow}`}>
-        <div>
-          <h2 className={styles.roomCodeLabel}>Room Code (Host)</h2>
-          <h1 className={styles.roomCodeValue}>{roomCode}</h1>
-        </div>
-        <div className={styles.actionButtons}>
-          <button
-            className={`kbd-container btn ${roomState.locked ? "btn-danger" : "btn-primary"}`}
-            onClick={toggleRoomLock}
-          >
-            {roomState.locked ? "Unlock All Buzzers" : "Lock All Buzzers"}
-          </button>
-          <button className="btn btn-danger">End Room</button>
-        </div>
-      </div>
-
-      {roomState.buzzed && (
-        <div className={styles.winnerBanner}>
-          <div className={styles.winnerLabel}>First to Buzz</div>
-          <div className={styles.winnerName}>
-            {roomState.buzzed.player.name}
+    <>
+      <div className={`animate-slide-up ${styles.hostWrapper}`}>
+        <div className={`flex-row ${styles.headerRow}`}>
+          <div>
+            <h2 className={styles.roomCodeLabel}>Room Code (Host)</h2>
+            <h1 className={styles.roomCodeValue}>{roomCode}</h1>
           </div>
-          {roomState.buzzed.player.team && (
-            <div className={styles.winnerTeam}>
-              Team: {roomState.buzzed.player.team}
+          <div className={styles.actionButtons}>
+            <button
+              className={`kbd-container btn ${roomState.locked ? "btn-danger" : "btn-primary"}`}
+              onClick={toggleRoomLock}
+            >
+              <kbd>{KEYBOARD_SHORTCUTS.host.toggleRoomLock}</kbd>
+              {roomState.locked ? "Unlock All Buzzers" : "Lock All Buzzers"}
+            </button>
+            <button className="btn btn-danger">End Room</button>
+          </div>
+        </div>
+
+        {roomState.buzzed && (
+          <div className={styles.winnerBanner}>
+            <div className={styles.winnerLabel}>First to Buzz</div>
+            <div className={styles.winnerName}>
+              {roomState.buzzed.player.name}
             </div>
-          )}
-          <button
-            className={`btn btn-primary ${styles.resetButton}`}
-            onClick={clearBuzz}
-          >
-            Clear & Reset
-          </button>
-        </div>
-      )}
+            {roomState.buzzed.player.team && (
+              <div className={styles.winnerTeam}>
+                Team: {roomState.buzzed.player.team}
+              </div>
+            )}
+            <button
+              className={`kbd-container btn btn-primary ${styles.resetButton}`}
+              onClick={clearBuzz}
+            >
+              <kbd>{KEYBOARD_SHORTCUTS.host.clearBuzz}</kbd>
+              Clear & Reset
+            </button>
+          </div>
+        )}
 
-      {!roomState.buzzed && (
-        <div className={`glass-card text-center ${styles.waitingCard}`}>
-          <h2 className={styles.waitingTitle}>Waiting for a buzz...</h2>
-        </div>
-      )}
+        {!roomState.buzzed && (
+          <div className={`glass-card text-center ${styles.waitingCard}`}>
+            <h2 className={styles.waitingTitle}>Waiting for a buzz...</h2>
+          </div>
+        )}
 
-      <CreateTeamForm roomCode={roomCode as string} />
+        <CreateTeamForm roomCode={roomCode as string} />
 
-      <div className={styles.sectionsWrapper}>
-        <h2 className={styles.sectionTitle}>Players & Teams</h2>
+        <div className={styles.sectionsWrapper}>
+          <h2 className={styles.sectionTitle}>Players & Teams</h2>
 
-        <div>
-          {players.map((player) => (
-            <PlayerCard key={player.id} player={player} roomCode={roomCode} />
-          ))}
+          <div>
+            {players.map((player) => (
+              <PlayerCard key={player.id} player={player} roomCode={roomCode} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <ToggleKbdButton />
+    </>
   );
 }

@@ -1,0 +1,27 @@
+.toggleBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+
+  transition: all 0.2s ease;
+}
+
+.active {
+  background: linear-gradient(135deg, var(--success), var(--success-hover));
+  color: var(--white);
+}
+
+.inactive {
+  background: var(--white);
+  color: var(--black);
+}
