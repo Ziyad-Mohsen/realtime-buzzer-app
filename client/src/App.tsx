@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import Home from "./pages/Home";
-import RoomHost from "./pages/RoomHost";
-import RoomPlayer from "./pages/RoomPlayer";
+import Home from "./pages/Home/Home";
+import RoomHost from "./pages/RoomHost/RoomHost";
+import RoomPlayer from "./pages/RoomPlayer/RoomPlayer";
 import "./index.css";
 import { useEffect } from "react";
 import UserContextProvider from "./contexts/UserContext";
@@ -19,10 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserContextProvider>
-        <div
-          className="container"
-          style={{ flex: 1, display: "flex", flexDirection: "column" }}
-        >
+        <div className="container flex-1 flex-col">
           <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />

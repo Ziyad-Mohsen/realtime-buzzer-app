@@ -1,0 +1,43 @@
+.homeCard {
+  max-width: 500px;
+  width: 100%;
+  margin: 10vh auto 2rem auto;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.titleAccent {
+  color: var(--primary);
+}
+
+.subtitle {
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.hostButton {
+  padding: 18px;
+}
+
+.divider {
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.roomInput {
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.3em;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.joinButton {
+  padding: 16px;
+  font-size: 1.1rem;
+}

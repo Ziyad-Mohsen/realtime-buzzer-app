@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { socket } from "../socket";
-import { useUserContext } from "../contexts/UserContext";
-import { Player, Room } from "../../../server/types";
+import { socket } from "../../socket";
+import { useUserContext } from "../../contexts/UserContext";
+import { Player, Room } from "../../../../server/types";
 import toast from "react-hot-toast";
-import buzzerSound from "../assets/sounds/buzzer-sound.mp3";
-import useAudio from "../hooks/useAudio";
+import buzzerSound from "../../assets/sounds/buzzer-sound.mp3";
+import useAudio from "../../hooks/useAudio";
+import styles from "./RoomPlayer.module.css";
 
 export default function RoomPlayer() {
   const navigate = useNavigate();
@@ -99,12 +100,11 @@ export default function RoomPlayer() {
   if (error) {
     return (
       <div
-        className="glass-card text-center animate-slide-up"
-        style={{ marginTop: "20vh" }}
+        className={`glass-card text-center animate-slide-up ${styles.errorCard}`}
       >
-        <h2 style={{ color: "var(--danger)", marginBottom: "1rem" }}>Error</h2>
-        <p style={{ marginBottom: "1rem" }}>{error}</p>
-        <button className="btn-primary" onClick={() => navigate("/")}>
+        <h2 className={styles.errorTitle}>Error</h2>
+        <p className={styles.errorText}>{error}</p>
+        <button className="btn btn-primary" onClick={() => navigate("/")}>
           Go Home
         </button>
       </div>
@@ -137,55 +137,20 @@ export default function RoomPlayer() {
   const hasBuzzed = false;
 
   return (
-    <div
-      className="animate-slide-up"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        padding: "2rem 0",
-      }}
-    >
+    <div className={`animate-slide-up ${styles.playerWrapper}`}>
       {/* Header */}
-      <div className="flex-row" style={{ padding: "0 1rem" }}>
+      <div className={`flex-row ${styles.headerRow}`}>
         <div>
-          <h1 style={{ fontSize: "1.5rem", marginBottom: "0.2rem" }}>
-            {player.name}
-          </h1>
+          <h1 className={styles.playerName}>{player.name}</h1>
           <div className="badge badge-primary">{player.team || "-"}</div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div
-            style={{
-              fontSize: "0.85rem",
-              color: "var(--text-secondary)",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-            }}
-          >
-            Room
-          </div>
-          <div
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: "800",
-              letterSpacing: "0.1em",
-            }}
-          >
-            {roomCode}
-          </div>
+          <div className={styles.roomCodeLabel}>Room</div>
+          <div className={styles.roomCodeValue}>{roomCode}</div>
         </div>
       </div>
 
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className={styles.buzzerSection}>
         {/* <div style={{ marginTop: "20px" }}>
           <select
             className="team-select"
@@ -203,7 +168,7 @@ export default function RoomPlayer() {
         </div> */}
 
         <button
-          className={`buzzer-btn ${didIBuzz ? "buzzed-pulse winner-buzzer" : "buzzer-btn locked-buzzer"}`}
+          className={`${styles.buzzerBtn} ${didIBuzz ? `buzzed-pulse ${styles.winnerBuzzer}` : styles.lockedBuzzer}`}
           onClick={handleBuzz}
           disabled={isDisabled}
         >
@@ -211,24 +176,13 @@ export default function RoomPlayer() {
         </button>
 
         <h2
-          className="text-center"
-          style={{
-            marginTop: "2rem",
-            color: didIBuzz
-              ? "var(--success)"
-              : isDisabled && !hasBuzzed
-                ? "var(--danger)"
-                : "var(--text-primary)",
-            transition: "color 0.3s",
-            marginBottom: "2rem",
-          }}
+          className={`text-center ${styles.statusMessage} ${didIBuzz ? styles.statusSuccess : isDisabled && !hasBuzzed ? styles.statusDanger : styles.statusDefault}`}
         >
           {"statusMessage"}
         </h2>
 
         <button
-          className="btn-outline"
-          style={{ borderColor: "var(--danger)", color: "var(--danger)" }}
+          className={`btn btn-outline ${styles.leaveBtn}`}
           onClick={handleRoomLeave}
         >
           Leave Room

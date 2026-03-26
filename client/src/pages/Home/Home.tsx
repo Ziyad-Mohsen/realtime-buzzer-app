@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../socket";
+import { socket } from "../../socket";
 import toast from "react-hot-toast";
-import { useUserContext } from "../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
+import styles from "./Home.module.css";
 
 export default function Home() {
   const [roomCode, setRoomCode] = useState("");
@@ -49,38 +50,23 @@ export default function Home() {
   };
 
   return (
-    <div className="glass-card animate-slide-up" style={{ marginTop: "10vh" }}>
-      <h1
-        className="text-center"
-        style={{ fontSize: "3rem", marginBottom: "0.5rem" }}
-      >
-        Buzzer<span style={{ color: "var(--primary)" }}>App</span>
+    <div className={`glass-card animate-slide-up ${styles.homeCard}`}>
+      <h1 className={`text-center ${styles.title}`}>
+        Buzzer<span className={styles.titleAccent}>App</span>
       </h1>
-      <p
-        className="text-center"
-        style={{ marginBottom: "2.5rem", fontSize: "1.1rem" }}
-      >
+      <p className={`text-center ${styles.subtitle}`}>
         Experience the fastest multi-player buzzer.
       </p>
 
       <div className="flex-col">
         <button
-          className="btn-primary"
+          className={`btn btn-primary ${styles.hostButton}`}
           onClick={createRoom}
-          style={{ padding: "18px" }}
         >
           Host a New Room
         </button>
 
-        <div
-          style={{
-            textAlign: "center",
-            margin: "1.5rem 0",
-            color: "var(--text-secondary)",
-            fontWeight: "600",
-            letterSpacing: "0.1em",
-          }}
-        >
+        <div className={`text-center ${styles.divider}`}>
           — OR JOIN EXISTING —
         </div>
 
@@ -92,13 +78,7 @@ export default function Home() {
             onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
             required
             maxLength={6}
-            style={{
-              textTransform: "uppercase",
-              textAlign: "center",
-              letterSpacing: "0.3em",
-              fontWeight: "800",
-              fontSize: "1.25rem",
-            }}
+            className={styles.roomInput}
           />
           <input
             type="text"
@@ -115,8 +95,7 @@ export default function Home() {
           /> */}
           <button
             type="submit"
-            className="btn-outline"
-            style={{ padding: "16px" }}
+            className={`btn btn-outline ${styles.joinButton}`}
           >
             Join Room
           </button>

@@ -1,0 +1,121 @@
+.errorCard {
+  max-width: 500px;
+  width: 100%;
+  margin: 20vh auto 2rem auto;
+}
+
+.errorTitle {
+  color: var(--danger);
+  margin-bottom: 1rem;
+}
+
+.errorText {
+  margin-bottom: 1rem;
+}
+
+.playerWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 2rem 0;
+}
+
+.headerRow {
+  padding: 0 1rem;
+}
+
+.playerName {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.roomCodeLabel {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.roomCodeValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.buzzerSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buzzerBtn {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: radial-gradient(circle at 30% 30%, var(--warning), var(--warning));
+  color: white;
+  border: 12px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px var(--warning), inset 0 15px 25px rgba(255, 255, 255, 0.4), inset 0 -15px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.1s;
+  margin: 3rem auto;
+  display: block;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.buzzerBtn:active:not(:disabled) {
+  transform: scale(0.92) translateY(15px);
+  box-shadow: 0 5px 15px var(--warning), inset 0 8px 15px rgba(255, 255, 255, 0.4), inset 0 -8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.buzzerBtn:disabled {
+  background: radial-gradient(circle at 30% 30%, #64748b, #334155);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 5px 10px rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
+  color: var(--text-primary);
+}
+
+.lockedBuzzer:disabled {
+  background: radial-gradient(circle at 30% 30%, var(--danger), var(--danger));
+}
+
+.winnerBuzzer:disabled {
+  background: radial-gradient(circle at 30% 30%, var(--success), var(--success));
+}
+
+
+.statusMessage {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  transition: color 0.3s;
+}
+
+.statusSuccess {
+  color: var(--success);
+}
+
+.statusDanger {
+  color: var(--danger);
+}
+
+.statusDefault {
+  color: var(--text-primary);
+}
+
+.leaveBtn {
+  background: transparent;
+  border: 2px solid var(--danger);
+  color: var(--danger);
+  padding: 10px 20px;
+}
+
+.leaveBtn:hover {
+  border-color: var(--text-primary);
+}

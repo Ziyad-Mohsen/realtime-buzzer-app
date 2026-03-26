@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { socket } from "../socket";
+import { socket } from "../../socket";
 import toast from "react-hot-toast";
+import styles from "./CreateTeamForm.module.css";
 
 const TEAMS_COLORS = [
   "#3B82F6", // Blue
@@ -40,49 +41,29 @@ export default function CreateTeamForm({ roomCode }: { roomCode: string }) {
 
   return (
     <div
-      style={{
-        minWidth: "100%",
-        border: `1px solid ${newTeamColor}`,
-        margin: "0",
-      }}
-      className="glass-card"
+      style={{ "--team-color": newTeamColor } as React.CSSProperties}
+      className={`glass-card ${styles.formCard}`}
     >
-      <h3 style={{ marginBottom: "1rem" }}>Add a team</h3>
-      <div style={{ display: "flex", gap: "8px", padding: "12px" }}>
+      <h3 className={styles.title}>Add a team</h3>
+      <div className={styles.colorPicker}>
         {TEAMS_COLORS.map((color) => (
           <button
             key={color}
             onClick={() => setNewTeamColor(color)}
-            style={{
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              backgroundColor: color,
-              border:
-                color === newTeamColor
-                  ? "2px solid var(--text-primary)"
-                  : "2px solid transparent",
-            }}
+            style={{ "--btn-bg": color } as React.CSSProperties}
+            className={`${styles.colorBtn} ${color === newTeamColor ? styles.colorBtnActive : ""}`}
           />
         ))}
       </div>
-      <form
-        onSubmit={addTeam}
-        className="flex-row"
-        style={{ alignItems: "center" }}
-      >
+      <form onSubmit={addTeam} className={`flex-row ${styles.form}`}>
         <input
           type="text"
           placeholder="New Team Name"
           value={newTeamName}
           onChange={(e) => setNewTeamName(e.target.value)}
-          style={{ flex: 1, marginBottom: 0 }}
+          className={styles.input}
         />
-        <button
-          type="submit"
-          className="btn-primary"
-          style={{ padding: "12px 24px", whiteSpace: "nowrap" }}
-        >
+        <button type="submit" className={`btn btn-primary ${styles.submitBtn}`}>
           Add Team
         </button>
       </form>

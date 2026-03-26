@@ -1,0 +1,94 @@
+.errorCard {
+  max-width: 500px;
+  width: 100%;
+  margin: 20vh auto 2rem auto;
+}
+
+.errorTitle {
+  color: var(--danger);
+  margin-bottom: 1rem;
+}
+
+.homeButton {
+  margin-top: 1.5rem;
+}
+
+
+.headerRow {
+  margin-top: 2rem;
+}
+
+.roomCodeLabel {
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.roomCodeValue {
+  font-size: 3.5rem;
+  letter-spacing: 0.2em;
+  color: var(--primary);
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.winnerBanner {
+  background: linear-gradient(135deg, var(--warning), #fbbf24);
+  color: #78350f;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+}
+
+.winnerLabel {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.winnerName {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.winnerTeam {
+  font-size: 1.25rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.resetButton {
+  background: #78350f;
+  color: #fef3c7;
+  margin-top: 1.5rem;
+  box-shadow: none;
+}
+
+.waitingCard {
+  max-width: 100%;
+  margin: 2rem 0;
+  padding: 3rem;
+}
+
+.waitingTitle {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.sectionsWrapper {
+  margin-top: 3rem;
+}
+
+.sectionTitle {
+  margin-bottom: 1.5rem;
+}

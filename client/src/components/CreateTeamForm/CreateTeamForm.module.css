@@ -1,0 +1,40 @@
+.formCard {
+  min-width: 100%;
+  margin: 0;
+  border: 1px solid var(--team-color);
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.colorPicker {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
+
+.colorBtn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-color: var(--btn-bg);
+}
+
+.colorBtnActive {
+  border: 2px solid var(--text-primary);
+}
+
+.form {
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.submitBtn {
+  white-space: nowrap;
+}
