@@ -10,6 +10,7 @@ import styles from "./RoomPlayer.module.css";
 import { useControlsKeys } from "../../hooks/useControlsKeys";
 import { KEYBOARD_SHORTCUTS } from "../../constants";
 import ToggleKbdButton from "../../components/ToggleKbdButton/ToggleKbdButton";
+import { isPlayerLocked } from "../../lib/utils";
 
 export default function RoomPlayer() {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ export default function RoomPlayer() {
     };
   }, []);
 
+  // TODO: use socket event instead of roomState listener
   useEffect(() => {
     if (roomState?.buzzed?.player.id === userId) {
       audio.play();
@@ -138,12 +140,7 @@ export default function RoomPlayer() {
 
   const didIBuzz = Boolean(roomState?.buzzed?.player.id === player.id);
   const isDisabled =
-    roomState.locked ||
-    (roomState.teams[player.team as string] &&
-      roomState.teams[player.team as string].locked) ||
-    player.locked ||
-    Boolean(roomState.buzzed) ||
-    didIBuzz;
+    isPlayerLocked(roomState, player) || Boolean(roomState.buzzed) || didIBuzz;
   const hasBuzzed = false;
 
   return (

@@ -192,9 +192,13 @@ export default function RoomHost() {
         <div className={styles.sectionsWrapper}>
           <h2 className={styles.sectionTitle}>Players & Teams</h2>
 
-          <div>
+          <div className="flex-col">
             {players.map((player) => (
-              <PlayerCard key={player.id} player={player} roomCode={roomCode} />
+              <PlayerCard
+                key={player.id}
+                player={player}
+                roomState={roomState}
+              />
             ))}
           </div>
         </div>

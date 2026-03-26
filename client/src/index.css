@@ -7,12 +7,16 @@
   --text-secondary: #94a3b8;
   --primary: #3b82f6;
   --primary-hover: #2563eb;
+  --primary-shadow: rgba(59, 130, 246, 0.2);
   --danger: #ef4444;
   --danger-hover: #dc2626;
+  --danger-shadow: rgba(239, 68, 68, 0.2);
   --success: #22c55e;
   --success-hover: #16a34a;
+  --success-shadow: rgba(34, 197, 94, 0.2);
   --warning: #f59e0b;
   --warning-hover: #d97706;
+  --warning-shadow: rgba(245, 158, 11, 0.2);
   --white: #ffffff;
   --black: #000000;
   --glass-bg: rgba(30, 41, 59, 0.7);

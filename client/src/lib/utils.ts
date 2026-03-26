@@ -18,3 +18,12 @@ export function getTeams(roomState: Room) {
 
   return teams;
 }
+
+export function isPlayerLocked(roomState: Room, player: Player) {
+  return (
+    roomState.locked ||
+    (roomState.teams[player.team as string] &&
+      roomState.teams[player.team as string].locked) ||
+    player.locked
+  );
+}

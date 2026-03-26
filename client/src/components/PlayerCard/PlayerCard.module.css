@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: all 0.3s ease;
 }
 
 .offline {
@@ -45,4 +46,20 @@
 .actionButton {
   padding: 6px 12px;
   font-size: 0.9rem;
+}
+
+.buzzed {
+  border: 1px solid var(--success);
+  box-shadow: 0 0 0 5px var(--success-shadow);
+}
+
+.steady {
+  border: 1px solid var(--warning);
+  box-shadow: 0 0 0 5px var(--warning-shadow);
+}
+
+.locked {
+  border: 1px solid var(--danger);
+  box-shadow: 0 0 0 5px var(--danger-shadow);
+  opacity: 0.5;
 }
